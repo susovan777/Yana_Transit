@@ -1,6 +1,11 @@
 {
   "name": "yana-transite",
   "private": true,
+  "type": "module",
+  "prettier": {
+    "singleQuote": true
+  },
+  "packageManager": "pnpm@10.0.0",
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
