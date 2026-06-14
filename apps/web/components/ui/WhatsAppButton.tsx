@@ -35,13 +35,13 @@ export default function WhatsAppButton() {
       className={[
         'fixed bottom-7 right-7 z-50',
         'flex items-center justify-center',
-        'w-14 h-14 rounded-full',
+        'w-12 h-12 rounded-full',
         'bg-wa-green',
         'shadow-[0_8px_24px_rgba(37,211,102,0.45)]',
         'transition-transform duration-200 hover:scale-110 active:scale-95',
       ].join(' ')}
     >
-      <WhatsAppIcon size={28} />
+      <WhatsAppIcon size={24} />
     </a>
   );
 }

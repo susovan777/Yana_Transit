@@ -73,8 +73,9 @@ function CarCard({ car }: { car: Car }) {
           Recommended: 600×400px, white/light background
         */}
         <Image
-          src={`/images/cars/${car.id}.jpg`}
+          src={`/images/cars/${car.id}.png`}
           alt={car.name}
+          key={car.name}
           fill
           className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

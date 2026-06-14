@@ -7,6 +7,7 @@ import { Outfit, Playfair_Display, Poppins } from 'next/font/google';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/ui/WhatsAppButton';
+import ScrollToTop from '@/components/ui/ScrollToTop';
 
 // ─────────────────────────────────────────
 // FONTS — loaded via next/font (zero layout shift, self-hosted, no external request)
@@ -109,6 +110,9 @@ export default function RootLayout({
 
         {/* Floating WhatsApp CTA */}
         <WhatsAppButton />
+
+        {/* Scroll to Top button */}
+        <ScrollToTop />
       </body>
     </html>
   );
