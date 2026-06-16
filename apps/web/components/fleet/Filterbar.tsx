@@ -34,9 +34,7 @@ export default function FilterBar({ active, onChange }: FilterBarProps) {
             role="tab"
             aria-selected={isActive}
             onClick={() => onChange(cat.value as CarCategory | 'all')}
-            className="relative px-5 py-2 rounded-full text-sm font-medium
-                       transition-colors duration-200 outline-none
-                       focus-visible:ring-2 focus-visible:ring-[#2E6FD8] focus-visible:ring-offset-2"
+            className="relative px-5 py-2 rounded-full text-sm font-medium transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#2E6FD8] focus-visible:ring-offset-2"
           >
             {/* Animated active pill — slides under the text */}
             {isActive && (
@@ -58,10 +56,7 @@ export default function FilterBar({ active, onChange }: FilterBarProps) {
 
             {/* Inactive border */}
             {!isActive && (
-              <span
-                className="absolute inset-0 rounded-full border border-slate-200
-                               hover:border-slate-400 transition-colors duration-200"
-              />
+              <span className="absolute inset-0 rounded-full border border-slate-200 hover:border-slate-400 transition-colors duration-200" />
             )}
           </button>
         );
