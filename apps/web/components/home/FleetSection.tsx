@@ -23,9 +23,14 @@ const TAB_TO_CATEGORY: Record<Exclude<Tab, 'All'>, CarCategory> = {
   Luxury: 'luxury',
 };
 
+const FEATURED_IDS = ['maruti-swift', 'innova-crysta', 'mercedes-e-class'];
+
 function getFiltered(active: Tab): Car[] {
-  if (active === 'All') return FLEET;
-  return FLEET.filter((c) => c.category === TAB_TO_CATEGORY[active]);
+  if (active === 'All') return FLEET.filter((c) => FEATURED_IDS.includes(c.id));
+  return FLEET.filter((c) => c.category === TAB_TO_CATEGORY[active]).slice(
+    0,
+    3
+  );
 }
 
 // ─────────────────────────────────────────
@@ -281,6 +286,36 @@ export default function FleetSection() {
               </motion.div>
             ))}
           </AnimatePresence>
+        </motion.div>
+
+        {/* ── View Full Fleet CTA ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45, delay: 0.2 }}
+          className="flex justify-center mt-12"
+        >
+          <a
+            href="/fleet"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-btn
+               bg-navy text-white text-[14px] font-semibold
+               hover:bg-sky-brand transition-all duration-300
+               hover:-translate-y-px hover:shadow-lg hover:shadow-sky-brand/25"
+          >
+            View Full Fleet
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
         </motion.div>
 
         {/* ── Empty state ── */}
