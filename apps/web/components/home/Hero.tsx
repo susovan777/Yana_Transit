@@ -162,7 +162,7 @@ export default function HeroSection() {
         alt=""
         fill
         priority
-        quality={90}
+        quality={75}
         className="object-cover object-center"
         aria-hidden="true"
       />
@@ -296,7 +296,7 @@ export default function HeroSection() {
               width={700}
               height={450}
               priority
-              quality={90}
+              quality={75}
               className="object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)] relative z-10"
             />
           </div>

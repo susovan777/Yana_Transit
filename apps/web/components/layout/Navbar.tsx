@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { Menu, Phone, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import {
   buildWhatsAppUrl,
   NAV_LINKS,
@@ -65,13 +65,6 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
-          {/* <a
-            href={`tel:${SITE.phoneRaw}`}
-            className="flex items-center gap-2 text-[15px] font-semibold text-sky-brand hover:text-sky-dark transition-colors duration-200"
-          >
-            <Phone className="w-4 h-4" strokeWidth={2} />
-            {SITE.phone}
-          </a> */}
           <a
             href={waUrl}
             target="_blank"
