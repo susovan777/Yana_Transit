@@ -65,14 +65,14 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
-          <a
+          <Link
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-[22px] py-[9px] rounded-btn bg-navy text-white text-[14px] font-semibold whitespace-nowrap hover:bg-navy-mid transition-all duration-200 hover:-translate-y-px"
           >
             Book a Ride
-          </a>
+          </Link>
         </div>
 
         <button
@@ -115,21 +115,21 @@ export default function Navbar() {
             </Link>
           ))}
           <div className="flex flex-col gap-3 pt-4 pb-2">
-            {/* <a
+            {/* <Link
               href={`tel:${SITE.phoneRaw}`}
               className="flex items-center justify-center gap-2 py-3 rounded-btn border border-line text-[14px] font-semibold text-sky-brand"
             >
               <Phone className="w-4 h-4" strokeWidth={2} />
               {SITE.phone}
-            </a> */}
-            <a
+            </Link> */}
+            <Link
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center py-3 rounded-btn bg-navy text-white text-[14px] font-semibold"
             >
               Book a Ride
-            </a>
+            </Link>
           </div>
         </nav>
       </div>

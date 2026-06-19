@@ -59,7 +59,7 @@ function FooterColumn({
 /** Social icon button */
 function SocialBtn({ label, href, icon }: SocialItem) {
   return (
-    <a
+    <Link
       href={href}
       target="_blank"
       rel="noopener noreferrer"
@@ -67,7 +67,7 @@ function SocialBtn({ label, href, icon }: SocialItem) {
       className="flex items-center justify-center w-9 h-9 rounded-btn border border-white/15 text-white/60 hover:bg-sky-brand hover:border-sky-brand hover:text-white transition-all duration-200"
     >
       {icon}
-    </a>
+    </Link>
   );
 }
 

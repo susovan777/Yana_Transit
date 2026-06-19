@@ -167,6 +167,11 @@ export default function CitiesSection() {
             <CityCard key={city.id} city={city} />
           ))}
         </motion.div>
+
+        <p className="text-center mt-10 text-gray-600">
+          Also serving · Hyderabad · Chennai · Pune · Ahmedabad · Kochi ·
+          Chandigarh · Agra · Udaipur + 30 more
+        </p>
       </div>
     </section>
   );

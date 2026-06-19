@@ -11,6 +11,7 @@
 // border highlight on hover with top blue line,
 // icon bg shifts to navy, "Book now →" CTA.
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Service } from '@/lib/data/services';
@@ -55,26 +56,13 @@ export default function ServicesGrid({ services }: ServicesGridProps) {
             variants={cardVariants}
             whileHover={{ y: -5 }}
             transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-            className="group relative flex flex-col bg-white rounded-2xl
-                       border-[1.5px] border-slate-200 p-7
-                       hover:border-[#2E6FD8] hover:shadow-xl
-                       hover:shadow-[#2E6FD8]/8 transition-shadow duration-300
-                       overflow-hidden"
+            className="group relative flex flex-col bg-white rounded-2xl border-[1.5px] border-slate-200 p-7 hover:border-[#2E6FD8] hover:shadow-xl hover:shadow-[#2E6FD8]/8 transition-shadow duration-300 overflow-hidden"
           >
             {/* Top accent line — slides in on hover */}
-            <div
-              className="absolute top-0 left-0 right-0 h-[2px] bg-[#2E6FD8]
-                            scale-x-0 group-hover:scale-x-100 origin-left
-                            transition-transform duration-300"
-            />
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#2E6FD8] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
 
             {/* Icon */}
-            <div
-              className="w-12 h-12 rounded-xl bg-slate-100
-                            group-hover:bg-[#0B1F3A]
-                            flex items-center justify-center text-2xl
-                            transition-colors duration-300 mb-5 shrink-0"
-            >
+            <div className="w-12 h-12 rounded-xl bg-slate-100 group-hover:bg-[#0B1F3A] flex items-center justify-center text-2xl transition-colors duration-300 mb-5 shrink-0">
               {service.icon}
             </div>
 
@@ -94,16 +82,15 @@ export default function ServicesGrid({ services }: ServicesGridProps) {
             </p>
 
             {/* Book CTA */}
-            <a
+            <Link
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold 
-                        text-[#2E6FD8] hover:gap-3 transition-all duration-200 group/cta"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#2E6FD8] hover:gap-3 transition-all duration-200 group/cta"
             >
               Book now
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/cta:translate-x-1" />
-            </a>
+            </Link>
           </motion.div>
         );
       })}

@@ -7,6 +7,7 @@ import { ArrowRight } from 'lucide-react';
 
 import { buildWhatsAppUrl } from '@/lib/constants';
 import { SERVICES, Service } from '@/lib/data/services';
+import Link from 'next/link';
 
 // ─────────────────────────────────────────
 // ANIMATION VARIANTS
@@ -82,7 +83,7 @@ function ServiceCard({ service }: { service: Service }) {
           {service.priceLabel}
         </span>
 
-        <a
+        <Link
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
@@ -93,7 +94,7 @@ function ServiceCard({ service }: { service: Service }) {
             className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-0.5"
             strokeWidth={2.5}
           />
-        </a>
+        </Link>
       </div>
     </motion.div>
   );

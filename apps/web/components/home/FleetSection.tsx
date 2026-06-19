@@ -2,13 +2,14 @@
 
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Users, Cog, MessageCircle } from 'lucide-react';
-
-import { FLEET, Car, CarCategory, BadgeStyle } from '@/lib/data/fleet';
+import { Users, Cog, ArrowRight } from 'lucide-react';
 import { buildWhatsAppUrl } from '@/lib/constants';
+import { WhatsAppIcon } from '../ui/SocialIcons';
+import { FLEET, Car, CarCategory, BadgeStyle } from '@/lib/data/fleet';
 
 // ─────────────────────────────────────────
 // FILTER TABS
@@ -134,15 +135,15 @@ function CarCard({ car }: { car: Car }) {
           </div>
 
           {/* WhatsApp enquiry */}
-          <a
+          <Link
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-btn bg-sky-pale text-sky-brand text-[12px] font-semibold transition-all duration-200 hover:bg-sky-brand hover:text-white"
           >
-            <MessageCircle className="w-3.5 h-3.5" strokeWidth={2} />
+            <WhatsAppIcon size={15} />
             Enquire
-          </a>
+          </Link>
         </div>
       </div>
     </div>
@@ -210,7 +211,7 @@ export default function FleetSection() {
           <div>
             <motion.div
               variants={headerItem}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-sky-pale border border-sky-soft text-[12px] font-semibold text-sky-brand tracking-[0.5px] mb-4"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full  bg-sky-pale border border-sky-soft text-[12px] font-semibold text-sky-brand tracking-[0.5px] mb-4"
             >
               🚗 Our Fleet
             </motion.div>
@@ -243,8 +244,7 @@ export default function FleetSection() {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`
-                  relative px-5 py-2 rounded-full text-[13px] font-medium
-                  border transition-colors duration-200 cursor-pointer
+                  relative px-5 py-2 rounded-full text-[13px] font-medium border transition-colors duration-200 cursor-pointer
                   ${
                     activeTab === tab
                       ? 'bg-navy text-white border-navy'
@@ -296,26 +296,13 @@ export default function FleetSection() {
           transition={{ duration: 0.45, delay: 0.2 }}
           className="flex justify-center mt-12"
         >
-          <a
+          <Link
             href="/fleet"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-btn
-               bg-navy text-white text-[14px] font-semibold
-               hover:bg-sky-brand transition-all duration-300
-               hover:-translate-y-px hover:shadow-lg hover:shadow-sky-brand/25"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-btn bg-navy text-white text-[14px] font-semibold hover:bg-sky-brand transition-all duration-300 hover:-translate-y-px hover:shadow-lg hover:shadow-sky-brand/25"
           >
             View Full Fleet
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
+            <ArrowRight size={16} />
+          </Link>
         </motion.div>
 
         {/* ── Empty state ── */}
