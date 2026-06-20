@@ -1,0 +1,52 @@
+# docker-compose.yml
+#
+# What this does:
+#   - Spins up PostgreSQL on port 5432
+#   - Spins up Redis on port 6379
+#   - Creates a named volume so your data persists between restarts
+#
+# Commands:
+#   Start:   docker-compose up -d        (-d = detached, runs in background)
+#   Stop:    docker-compose down
+#   Logs:    docker-compose logs -f
+#   Reset:   docker-compose down -v      (-v removes volumes = fresh DB)
+
+services:
+  # ── PostgreSQL ─────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine # lightweight Alpine Linux variant
+    container_name: yana_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: yana_user
+      POSTGRES_PASSWORD: yana_password
+      POSTGRES_DB: yana_transit
+    ports:
+      - '5432:5432' # host:container — access via localhost:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U yana_user -d yana_transit']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Redis ──────────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: yana_redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379' # host:container
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+# ── Named volumes (data persists between docker-compose up/down) ────
+volumes:
+  postgres_data:
+  redis_data:
