@@ -161,7 +161,7 @@ export default function InquirySection() {
 
   function handleSubmit() {
     const msg = [
-      "Hi Yana Transite! I'd like to make an enquiry.",
+      "Hi YAANA Transite! I'd like to make an enquiry.",
       '',
       `Name: ${form.name || '—'}`,
       `Mobile: ${form.mobile || '—'}`,

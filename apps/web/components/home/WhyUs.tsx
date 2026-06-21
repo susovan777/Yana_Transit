@@ -113,7 +113,7 @@ export default function WhyUsSection() {
             variants={fadeLeft}
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-sky-pale border border-sky-soft text-[12px] font-semibold text-sky-brand tracking-[0.5px] mb-4"
           >
-            🌟 Why Yana Transite
+            🌟 Why YAANA Transite
           </motion.div>
 
           {/* Heading */}

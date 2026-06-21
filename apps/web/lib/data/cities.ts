@@ -1,7 +1,7 @@
 // Path: data\cities.ts
 
 // ─────────────────────────────────────────
-// CITIES DATA — Yana Transite
+// CITIES DATA — YAANA Transite
 //
 // City photos go in /public/images/cities/
 // named exactly as <id>.jpg

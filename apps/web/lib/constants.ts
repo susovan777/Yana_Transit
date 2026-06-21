@@ -1,23 +1,23 @@
 // ─────────────────────────────────────────
-// SITE-WIDE CONSTANTS — Yana Transit
+// SITE-WIDE CONSTANTS — YAANA Transit
 // Update contact details, nav links, footer
 // data here. Used across Navbar, Footer, etc.
 // ─────────────────────────────────────────
 
 export const SITE = {
-  name: 'Yana Transit',
+  name: 'YAANA Transit',
   tagline: 'Driven by Trust',
   description:
     'Premium car rentals across 50+ cities in India. Chauffeur-driven, self-drive and corporate rentals — all with transparent pricing and verified drivers.',
   phone: '+91 98765 43210',
   phoneRaw: '919876543210',
-  email: 'hello@YanaTransit.in',
+  email: 'hello@YAANATransit.in',
   address: 'Mumbai, Maharashtra, India',
   whatsappBase: 'https://wa.me/919876543210',
 } as const;
 
 export const WA_MESSAGES = {
-  default: 'Hi! I want to book a car with Yana Transit.',
+  default: 'Hi! I want to book a car with YAANA Transit.',
   inquiry: 'Hi! I have a car rental enquiry.',
 } as const;
 

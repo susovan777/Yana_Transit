@@ -210,7 +210,7 @@ export default function ServicesPage() {
           >
             <Link
               href={`https://wa.me/${SITE.phoneRaw}?text=${encodeURIComponent(
-                'Hi Yana Transit! I need help choosing the right service for my trip.'
+                'Hi YAANA Transit! I need help choosing the right service for my trip.'
               )}`}
               target="_blank"
               rel="noopener noreferrer"

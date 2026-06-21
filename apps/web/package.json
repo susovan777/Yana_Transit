@@ -1,6 +1,7 @@
 {
-  "name": "web",
+  "name": "@yt/web",
   "version": "0.1.0",
+  "description": "YAANA Transit Customer Portal - NextJS App Router",
   "private": true,
   "scripts": {
     "dev": "next dev",

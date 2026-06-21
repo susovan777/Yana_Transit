@@ -1,7 +1,7 @@
 // Path: data\testimonials.ts
 
 // ─────────────────────────────────────────
-// TESTIMONIALS DATA — Yana Transite
+// TESTIMONIALS DATA — YAANA Transite
 // ─────────────────────────────────────────
 
 export type Testimonial = {
@@ -18,7 +18,7 @@ export type Testimonial = {
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 'priya-sharma',
-    text: 'Used Yana Transite for our Rajasthan trip. Driver Ramesh was professional, on time, and knew every stop along the way. Absolutely hassle-free experience!',
+    text: 'Used YAANA Transite for our Rajasthan trip. Driver Ramesh was professional, on time, and knew every stop along the way. Absolutely hassle-free experience!',
     rating: 5,
     name: 'Priya Sharma',
     city: 'Mumbai',
@@ -38,7 +38,7 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: 'sunita-reddy',
-    text: 'Our company uses Yana Transite for all corporate travel. GST invoices, dedicated point of contact, always punctual. Exactly what a business needs.',
+    text: 'Our company uses YAANA Transite for all corporate travel. GST invoices, dedicated point of contact, always punctual. Exactly what a business needs.',
     rating: 5,
     name: 'Sunita Reddy',
     city: 'Hyderabad',

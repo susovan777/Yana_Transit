@@ -40,8 +40,8 @@ const poppins = Poppins({
 // ─────────────────────────────────────────
 export const metadata: Metadata = {
   title: {
-    default: 'Yana Transit — Driven by Trust',
-    template: '%s | Yana Transit',
+    default: 'YAANA Transit — Driven by Trust',
+    template: '%s | YAANA Transit',
   },
   description:
     'Premium car rentals across 50+ cities in India. Chauffeur-driven, self-drive and corporate rentals with transparent pricing and verified drivers.',
@@ -56,20 +56,20 @@ export const metadata: Metadata = {
     'outstation trip',
     'corporate car rental',
   ],
-  authors: [{ name: 'Yana Transit' }],
-  creator: 'Yana Transit',
+  authors: [{ name: 'YAANA Transit' }],
+  creator: 'YAANA Transit',
   openGraph: {
-    title: 'Yana Transit — Driven by Trust',
+    title: 'YAANA Transit — Driven by Trust',
     description:
       'Premium car rentals across 50+ cities in India. Chauffeur-driven, self-drive and corporate rentals.',
-    url: 'https://YanaTransit.in',
-    siteName: 'Yana Transit',
+    url: 'https://YAANATransit.in',
+    siteName: 'YAANA Transit',
     locale: 'en_IN',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Yana Transit — Driven by Trust',
+    title: 'YAANA Transit — Driven by Trust',
     description: 'Premium car rentals across 50+ cities in India.',
   },
   robots: {

@@ -215,7 +215,7 @@ export default function HeroSection() {
             className="text-[16px] leading-[1.8] text-white/60 max-w-[460px]"
             variants={fadeUpItem}
           >
-            From airport pickups to cross-state road trips — Yana Transite
+            From airport pickups to cross-state road trips — YAANA Transite
             delivers safe, comfortable, and reliable rides across India.
             Chauffeur-driven, self-drive &amp; corporate rentals.
           </motion.p>
@@ -277,7 +277,7 @@ export default function HeroSection() {
 
             <Image
               src="/images/hero-car.png"
-              alt="Featured vehicle — Yana Transite"
+              alt="Featured vehicle — YAANA Transite"
               width={700}
               height={450}
               priority

@@ -137,7 +137,7 @@ export default function CitiesSection() {
             variants={fadeUp}
             className="mt-3 text-[16px] leading-[1.75] text-muted max-w-[480px] mx-auto"
           >
-            From the beaches of Goa to the forts of Rajasthan — find a Yana
+            From the beaches of Goa to the forts of Rajasthan — find a YAANA
             Transite car in your city.
           </motion.p>
         </motion.div>

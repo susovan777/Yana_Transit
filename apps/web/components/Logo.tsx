@@ -15,7 +15,7 @@ export default function Logo({ src }: LogoProps) {
     //     quality={50}
     //     width={width}
     //     height={height}
-    //     alt="Yana Transit Logo"
+    //     alt="YAANA Transit Logo"
     //   />
     // </Link>
     <Link href="/" className="relative w-[180px] h-[100px] flex shrink-0">
@@ -24,7 +24,7 @@ export default function Logo({ src }: LogoProps) {
         src={src}
         quality={50}
         loading="eager"
-        alt="Yana Transit Logo"
+        alt="YAANA Transit Logo"
         className="object-contain"
         sizes="(max-width: 768px) 100vw, 50vw, 33vw"
       />

@@ -143,7 +143,7 @@ export default function Footer() {
         {/* ── Bottom bar ── */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-8">
           <p className="text-[13px] text-white/30 text-center sm:text-left">
-            © {new Date().getFullYear()} Yana Transit Pvt. Ltd. · All rights
+            © {new Date().getFullYear()} YAANA Transit Pvt. Ltd. · All rights
             reserved.
           </p>
           <p className="text-[13px] text-white/30">Made with ♥ for India</p>

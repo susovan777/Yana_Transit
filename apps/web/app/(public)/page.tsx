@@ -15,7 +15,7 @@ import TestimonialsSection from '@/components/home/Testimonials';
 import InquirySection from '@/components/home/InquirySection';
 
 export const metadata: Metadata = {
-  title: 'Home — Yana Transit | Car Rentals India',
+  title: 'Home — YAANA Transit | Car Rentals India',
   description:
     'Browse our fleet, explore services, and book your car rental across 50+ cities in India. Chauffeur-driven, self-drive and airport transfers.',
 };

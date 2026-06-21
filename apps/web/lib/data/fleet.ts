@@ -3,7 +3,7 @@
 // Path: apps/web/lib/data/fleet.ts
 //
 // ─────────────────────────────────────────
-// FLEET DATA — Yana Transit
+// FLEET DATA — YAANA Transit
 //
 // Car images go in:   /public/images/cars/<id>.jpg
 // Interior images:    /public/images/cars/<id>-interior.jpg

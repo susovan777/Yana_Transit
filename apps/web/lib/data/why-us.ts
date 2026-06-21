@@ -1,7 +1,7 @@
 // Path: lib\data\why-us.ts
 
 // ─────────────────────────────────────────
-// WHY US DATA — Yana Transite
+// WHY US DATA — YAANA Transite
 // ─────────────────────────────────────────
 
 // Left column — 3 detailed USP items
