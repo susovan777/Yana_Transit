@@ -1,7 +1,7 @@
 {
-  "name": "@yana-transit/api",
+  "name": "@yaana-transit/api",
   "version": "1.0.0",
-  "description": "Yana Transit REST API — Node.js + Express + Prisma + PostgreSQL",
+  "description": "YAANA Transit REST API — Node.js + Express + Prisma + PostgreSQL",
   "private": true,
   "scripts": {
     "dev": "tsx watch src/app.ts",
@@ -14,7 +14,8 @@
     "db:reset": "prisma migrate reset"
   },
   "dependencies": {
-    "@prisma/client": "^6.0.0",
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
@@ -23,6 +24,7 @@
     "express-rate-limit": "^7.4.1",
     "helmet": "^8.0.0",
     "morgan": "^1.10.0",
+    "pg": "^8.22.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -32,7 +34,8 @@
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.0.0",
-    "prisma": "^6.0.0",
+    "@types/pg": "^8.20.0",
+    "prisma": "^7.8.0",
     "tsx": "^4.19.1",
     "typescript": "^5.7.2"
   }

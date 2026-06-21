@@ -1,0 +1,499 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// YAANA Transit — PostgreSQL schema via Prisma ORM
+//
+// Key design decisions:
+//   • Single User table with role enum (RBAC)
+//   • Soft deletes via deletedAt — nothing is ever hard-deleted
+//   • All money values stored in PAISE (₹1 = 100 paise) as Int
+//     → avoids floating point precision bugs with currency
+//   • UUID primary keys (cuid) — safer than sequential IDs for public APIs
+//   • Audit timestamps (createdAt, updatedAt) on every table
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────
+
+// Only 2 roles — client requirement
+// ADMIN    → full access to everything
+// CUSTOMER → read-only access to their company's bookings/invoices
+enum Role {
+  ADMIN
+  CUSTOMER
+}
+
+// Updated per client requirement (req #5)
+// Removed: economy
+// Added: muv, premium_suv, premium
+enum CarCategory {
+  sedan // Maruti Suzuki Dzire
+  muv // Maruti Suzuki Ertiga / Toyota Rumion
+  suv // Toyota Innova Crysta
+  premium_suv // Toyota Innova HyCross
+  premium // Kia Carnival
+  luxury // Mercedes-Benz / BMW
+}
+
+enum FuelType {
+  petrol
+  diesel
+  electric
+  hybrid
+}
+
+enum Transmission {
+  manual
+  automatic
+}
+
+// Self-drive removed (req #6), ETS added
+enum ServiceType {
+  chauffeur // chauffeur-driven city rides
+  airport // airport transfer
+  outstation // intercity / long distance trips
+  corporate // managed corporate accounts
+  ets // Employee Transportation Services (new — req #6)
+  events // weddings, conferences, group travel
+}
+
+enum BookingStatus {
+  PENDING // received, not yet confirmed by admin
+  CONFIRMED // admin confirmed, chauffeur not yet assigned
+  ASSIGNED // chauffeur name assigned by admin
+  ACTIVE // trip in progress
+  COMPLETED // trip finished
+  CANCELLED // cancelled
+  REFUNDED // payment refunded
+}
+
+enum PaymentStatus {
+  PENDING
+  CAPTURED // payment successful
+  FAILED
+  REFUNDED
+  PARTIALLY_REFUNDED
+}
+
+enum OtpPurpose {
+  LOGIN
+  REGISTER
+}
+
+enum OfficeType {
+  HEAD_OFFICE
+  BRANCH
+}
+
+// ─────────────────────────────────────────
+// COMPANY (B2B Corporate Client)
+//
+// A Company is a corporate client of YAANA Transit.
+// e.g. "Infosys Bangalore", "TCS Mumbai"
+// One company can have multiple Users (employees
+// who log in to view/manage their company's bookings).
+// ─────────────────────────────────────────
+
+model Company {
+  id          String  @id @default(cuid())
+  name        String // "Infosys Limited"
+  displayName String? // "Infosys" (short name)
+  gstin       String? @unique // GST number for invoicing
+  pan         String? // PAN number
+  email       String? // official company email
+  phone       String? // official contact number
+
+  // Billing address (for GST invoices)
+  billingAddress String?
+  billingCity    String?
+  billingState   String?
+  billingPincode String?
+
+  // Contract details
+  contractStart DateTime?
+  contractEnd   DateTime?
+  creditLimit   Int? // paise — how much credit they can use
+  paymentTerms  Int       @default(30) // days — net-30 by default
+
+  active Boolean @default(true)
+  notes  String? @db.Text // internal admin notes
+
+  // Audit
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // soft delete
+
+  // Relations
+  users    User[]
+  bookings Booking[]
+
+  @@index([gstin])
+  @@index([active])
+  @@map("companies")
+}
+
+// ─────────────────────────────────────────
+// USERS & AUTH
+// ─────────────────────────────────────────
+
+model User {
+  id       String  @id @default(cuid())
+  name     String
+  email    String? @unique
+  phone    String  @unique // primary login identifier
+  role     Role    @default(CUSTOMER)
+  verified Boolean @default(false) // true after first OTP verified
+  active   Boolean @default(true)
+
+  // Profile
+  avatarUrl   String?
+  designation String? // "Fleet Manager", "HR Head"
+
+  // Company link (null for ADMIN users)
+  companyId String?
+  company   Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
+
+  // Audit
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  // Relations
+  bookings      Booking[] // bookings they raised
+  reviews       Review[]
+  otps          Otp[]
+  refreshTokens RefreshToken[]
+
+  @@index([phone])
+  @@index([email])
+  @@index([role])
+  @@index([companyId])
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique // hashed token stored here
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@map("refresh_tokens")
+}
+
+model Otp {
+  id        String     @id @default(cuid())
+  phone     String
+  otp       String // 6-digit code (hashed)
+  purpose   OtpPurpose @default(LOGIN)
+  verified  Boolean    @default(false)
+  attempts  Int        @default(0) // locked after 3 failed attempts
+  expiresAt DateTime // 10 mins from creation
+  createdAt DateTime   @default(now())
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([phone])
+  @@map("otps")
+}
+
+// ─────────────────────────────────────────
+// FLEET
+// ─────────────────────────────────────────
+
+model Car {
+  id           String       @id @default(cuid())
+  slug         String       @unique // "innova-crysta" (URL-safe)
+  name         String // "Toyota Innova Crysta"
+  make         String // "Toyota"
+  model        String // "Innova Crysta"
+  year         Int? // manufacture year
+  category     CarCategory
+  typeLabel    String // "SUV · 7-Seater" (display)
+  seats        Int
+  transmission Transmission
+  fuel         FuelType
+
+  // Pricing — stored in PAISE
+  // Kept in DB for GST invoicing even though
+  // pricing is NOT shown on the public website (req #4)
+  pricePerDay Int // paise/day (chauffeur)
+  pricePerKm  Int? // paise/km (outstation)
+
+  // Details
+  description String?       @db.Text
+  features    String[] // ["Full AC", "GPS", ...]
+  services    ServiceType[] // supported service types
+  images      String[] // Cloudinary URLs (white vehicles)
+
+  // Badge — still used in admin panel display
+  badge      String?
+  badgeStyle String?
+
+  // Status
+  available Boolean @default(true)
+
+  // Audit
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  // Relations
+  bookings Booking[]
+
+  @@index([category])
+  @@index([available])
+  @@index([slug])
+  @@map("cars")
+}
+
+// ─────────────────────────────────────────
+// BOOKINGS
+//
+// Chauffeur is a plain text field — Admin types
+// the chauffeur's name when assigning (req: no Driver role)
+// ─────────────────────────────────────────
+
+model Booking {
+  id            String @id @default(cuid())
+  bookingNumber String @unique // human-readable: "YT-2025-001"
+
+  // Who booked (user + their company)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  companyId String?
+  company   Company? @relation(fields: [companyId], references: [id])
+
+  // What they booked
+  carId String
+  car   Car    @relation(fields: [carId], references: [id])
+
+  // Service
+  serviceType ServiceType
+  status      BookingStatus @default(PENDING)
+
+  // Chauffeur — assigned manually by Admin (no Driver model)
+  chauffeurName  String? // "Ravi Kumar"
+  chauffeurPhone String? // for customer to contact
+
+  // Trip details
+  pickupCity     String
+  dropCity       String?
+  pickupAddress  String
+  dropAddress    String?
+  pickupDatetime DateTime
+  returnDatetime DateTime?
+
+  // Passenger details
+  passengerName  String? // if different from booking user
+  passengerPhone String?
+  passengerCount Int     @default(1)
+
+  // Pricing breakdown — all in PAISE
+  baseAmount     Int // car rate × days/km
+  taxAmount      Int @default(0) // GST 5% or 12%
+  gstRate        Int @default(5) // 5 or 12 (percentage)
+  discountAmount Int @default(0)
+  totalAmount    Int // final amount
+
+  // GST details for invoice
+  hsn     String? // HSN code for transport services
+  sacCode String  @default("996411") // SAC code for transport
+
+  // Admin notes
+  internalNotes String? @db.Text
+  notes         String? @db.Text // customer notes
+
+  // Cancellation
+  cancelledAt  DateTime?
+  cancelReason String?
+
+  // Audit
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  payment Payment?
+  review  Review?
+  invoice Invoice?
+
+  @@index([userId])
+  @@index([companyId])
+  @@index([carId])
+  @@index([status])
+  @@index([pickupDatetime])
+  @@index([bookingNumber])
+  @@map("bookings")
+}
+
+// ─────────────────────────────────────────
+// PAYMENTS
+// ─────────────────────────────────────────
+
+model Payment {
+  id        String  @id @default(cuid())
+  bookingId String  @unique
+  booking   Booking @relation(fields: [bookingId], references: [id])
+
+  // Razorpay
+  razorpayOrderId   String? @unique
+  razorpayPaymentId String? @unique
+  razorpaySignature String?
+
+  // Amount in PAISE
+  amount   Int
+  currency String        @default("INR")
+  status   PaymentStatus @default(PENDING)
+
+  // Payment method (captured from Razorpay)
+  method String? // "upi" | "card" | "netbanking"
+
+  // Refund
+  refundId     String?
+  refundAmount Int?
+  refundReason String?
+  refundedAt   DateTime?
+
+  paidAt    DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([bookingId])
+  @@index([status])
+  @@map("payments")
+}
+
+// ─────────────────────────────────────────
+// INVOICES
+//
+// GST-compliant invoices — Admin can download
+// as Excel/PDF (req: admin downloads GST reports)
+// ─────────────────────────────────────────
+
+model Invoice {
+  id            String  @id @default(cuid())
+  invoiceNumber String  @unique // "YAANA/2025-26/001"
+  bookingId     String  @unique
+  booking       Booking @relation(fields: [bookingId], references: [id])
+
+  // Billing party
+  companyName    String
+  companyGstin   String?
+  billingAddress String?
+
+  // YAANA Transit details (seller)
+  sellerGstin   String @default("")
+  sellerAddress String @default("")
+
+  // Amounts in PAISE
+  subtotal    Int
+  cgst        Int @default(0) // Central GST
+  sgst        Int @default(0) // State GST
+  igst        Int @default(0) // Interstate GST
+  totalAmount Int
+
+  // HSN/SAC
+  sacCode     String @default("996411")
+  description String // service description on invoice
+
+  // Status
+  issued   Boolean   @default(false)
+  issuedAt DateTime?
+  dueDate  DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([bookingId])
+  @@index([invoiceNumber])
+  @@map("invoices")
+}
+
+// ─────────────────────────────────────────
+// REVIEWS
+// ─────────────────────────────────────────
+
+model Review {
+  id        String  @id @default(cuid())
+  bookingId String  @unique
+  booking   Booking @relation(fields: [bookingId], references: [id])
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+
+  rating          Int // 1–5
+  chauffeurRating Int? // separate chauffeur rating
+  comment         String? @db.Text
+
+  // Admin can choose to show/hide on website
+  approved   Boolean   @default(false)
+  approvedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([approved])
+  @@map("reviews")
+}
+
+// ─────────────────────────────────────────
+// CITIES & OFFICE LOCATIONS (req #7, #8)
+//
+// carCount removed — client doesn't want
+// fleet numbers displayed
+// ─────────────────────────────────────────
+
+model City {
+  id       String  @id @default(cuid())
+  name     String
+  slug     String  @unique // "bangalore", "new-delhi"
+  state    String
+  active   Boolean @default(true)
+  imageUrl String? // city hero image (Cloudinary)
+
+  // Office in this city?
+  hasOffice  Boolean     @default(false)
+  officeType OfficeType? // HEAD_OFFICE or BRANCH
+
+  // Office details (shown in contact section — req #8)
+  officeAddress String? // full address (pending for Bangalore)
+  officePhone   String?
+  officeEmail   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([active])
+  @@index([hasOffice])
+  @@map("cities")
+}
+
+// ─────────────────────────────────────────
+// NOTIFICATIONS (audit trail for comms)
+// ─────────────────────────────────────────
+
+model Notification {
+  id       String   @id @default(cuid())
+  userId   String
+  type     String // "BOOKING_CONFIRMED" | "OTP" | "ASSIGNED"
+  channel  String // "whatsapp" | "sms" | "email"
+  content  String   @db.Text
+  status   String   @default("sent")
+  metadata Json? // store MSG91 response etc.
+  sentAt   DateTime @default(now())
+
+  @@index([userId])
+  @@map("notifications")
+}

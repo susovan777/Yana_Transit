@@ -80,7 +80,7 @@ const PORT = Number(process.env.PORT) || 4000;
 app.listen(PORT, () => {
   console.log(`
   ┌─────────────────────────────────────────┐
-  │   🚗  Yana Transit API                  │
+  │   🚗  YAANA Transit API                  │
   │   Port     : ${PORT}                       │
   │   Env      : ${process.env.NODE_ENV ?? 'development'}              │
   │   Health   : http://localhost:${PORT}/health │
