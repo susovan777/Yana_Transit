@@ -1,7 +1,8 @@
-// Path: lib\data\why-us.ts
+// Path: apps\web\lib\data\why-us.ts
 
 // ─────────────────────────────────────────
-// WHY US DATA — YAANA Transite
+// WHY US DATA — YAANA Transit
+// "Drivers" replaced with "Chauffeurs" throughout.
 // ─────────────────────────────────────────
 
 // Left column — 3 detailed USP items
@@ -56,18 +57,18 @@ export const FEATURE_CARDS: FeatureCard[] = [
       'Comprehensive insurance on every vehicle. Roadside assistance across all NH routes.',
   },
   {
-    id: 'drivers',
+    id: 'chauffeurs',
     icon: '🧑‍✈️',
-    title: 'Verified Drivers',
+    title: 'Verified Chauffeurs',
     description:
-      'Police verified, language-trained, and rated by customers after every trip.',
+      'Police verified, professionally trained, and rated by clients after every trip.',
   },
   {
     id: 'punctual',
     icon: '⏰',
     title: 'Always On Time',
     description:
-      'Punctuality is non-negotiable. Driver dispatched 30 mins before your pickup.',
+      'Punctuality is non-negotiable. Chauffeur dispatched 30 mins before your pickup.',
   },
   {
     id: 'cities',
@@ -82,5 +83,5 @@ export const HIGHLIGHT_CARD: HighlightCard = {
   icon: '📱',
   title: 'Book in 2 Minutes via WhatsApp',
   description:
-    'Message us your pickup location, date and car preference — we confirm within minutes. No app, no hassle.',
+    'Message us your pickup location, date and vehicle preference — we confirm within minutes. No app, no hassle.',
 };

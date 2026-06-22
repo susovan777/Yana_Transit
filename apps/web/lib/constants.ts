@@ -1,3 +1,5 @@
+// Path: apps\web\lib\constants.ts
+
 // ─────────────────────────────────────────
 // SITE-WIDE CONSTANTS — YAANA Transit
 // Update contact details, nav links, footer
@@ -8,17 +10,18 @@ export const SITE = {
   name: 'YAANA Transit',
   tagline: 'Driven by Trust',
   description:
-    'Premium car rentals across 50+ cities in India. Chauffeur-driven, self-drive and corporate rentals — all with transparent pricing and verified drivers.',
+    'Corporate car rentals across 50+ cities in India. Chauffeur-driven, employee transportation, and dedicated corporate fleet — all with transparent service and verified chauffeurs.',
   phone: '+91 98765 43210',
   phoneRaw: '919876543210',
-  email: 'hello@YAANATransit.in',
-  address: 'Mumbai, Maharashtra, India',
+  email: 'hello@yaanatransit.in',
+  // Address will be updated once Bengaluru HO address is confirmed
+  address: 'Bengaluru, Karnataka, India',
   whatsappBase: 'https://wa.me/919876543210',
 } as const;
 
 export const WA_MESSAGES = {
   default: 'Hi! I want to book a car with YAANA Transit.',
-  inquiry: 'Hi! I have a car rental enquiry.',
+  inquiry: 'Hi! I have a corporate car rental enquiry with YAANA Transit.',
 } as const;
 
 export function buildWhatsAppUrl(
@@ -36,9 +39,9 @@ export type NavLink = {
 };
 
 export const NAV_LINKS: NavLink[] = [
-  { label: 'Fleet', href: '/fleet' },
-  { label: 'Services', href: '/services' },
-  { label: 'Cities', href: '/cities' },
+  { label: 'Fleet', href: '#fleet' },
+  { label: 'Services', href: '#services' },
+  { label: 'Cities', href: '#cities' },
   { label: 'Why Us', href: '#why' },
   { label: 'Contact', href: '#inquiry' },
 ];
@@ -56,29 +59,29 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     heading: 'Services',
     links: [
       { label: 'Chauffeur-Driven', href: '#services' },
-      { label: 'Self-Drive', href: '#services' },
+      { label: 'Employee Transportation (ETS)', href: '#services' },
       { label: 'Airport Transfer', href: '#services' },
       { label: 'Outstation Trips', href: '#services' },
       { label: 'Corporate Rentals', href: '#services' },
-      { label: 'Events & Groups', href: '#services' },
+      { label: 'Events & Occasions', href: '#services' },
     ],
   },
   {
-    heading: 'Top Cities',
+    heading: 'Our Presence',
     links: [
-      { label: 'Mumbai', href: '#cities' },
+      { label: 'Bengaluru (HQ)', href: '#cities' },
       { label: 'New Delhi', href: '#cities' },
-      { label: 'Bengaluru', href: '#cities' },
-      { label: 'Goa', href: '#cities' },
-      { label: 'Jaipur', href: '#cities' },
+      { label: 'Mumbai', href: '#cities' },
+      { label: 'Pune', href: '#cities' },
       { label: 'Hyderabad', href: '#cities' },
+      { label: 'Chennai', href: '#cities' },
     ],
   },
   {
     heading: 'Company',
     links: [
       { label: 'About Us', href: '/about' },
-      { label: 'Our Fleet', href: '#fleet' },
+      { label: 'Our Fleet', href: '/fleet' },
       { label: 'Contact', href: '#inquiry' },
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms of Service', href: '/terms' },
@@ -90,7 +93,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
 export type SocialLink = {
   label: string;
   href: string;
-  icon: string; // text character — replaced with Lucide in component
+  icon: string; // matches Lucide icon name used in Footer component
 };
 
 export const SOCIAL_LINKS: SocialLink[] = [
