@@ -1,11 +1,6 @@
 import Link from 'next/link';
 
-import {
-  buildWhatsAppUrl,
-  FOOTER_COLUMNS,
-  SITE,
-  WA_MESSAGES,
-} from '@/lib/constants';
+import { FOOTER_COLUMNS, SITE } from '@/lib/constants';
 import Logo from '../Logo';
 import {
   FacebookIcon,
@@ -105,7 +100,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-12 pb-14 border-b border-white/10">
           {/* Brand column */}
           <div>
-            <Logo src="/logo-light.png" />
+            <Logo src="/logo-footer.png" width='w-[200px]' height='h-[200px]' />
 
             {/* Tagline */}
             {/* <p
@@ -116,7 +111,7 @@ export default function Footer() {
             </p> */}
 
             {/* Description */}
-            <p className="mt-6 text-[14px] leading-[1.75] text-white/50 mb-6 max-w-[320px]">
+            <p className="mt-0 text-[14px] leading-[1.75] text-white/50 mb-6 max-w-[320px]">
               {SITE.description}
             </p>
 

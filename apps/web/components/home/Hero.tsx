@@ -143,7 +143,7 @@ export default function HeroSection() {
     >
       {/* ── Background image ── */}
       <Image
-        src="/images/hero-bg.jpg"
+        src="/images/cars/car-bg.png"
         alt=""
         fill
         priority
@@ -275,7 +275,7 @@ export default function HeroSection() {
               }}
             />
 
-            <Image
+            {/* <Image
               src="/images/hero-car.png"
               alt="Featured vehicle — YAANA Transite"
               width={700}
@@ -283,7 +283,7 @@ export default function HeroSection() {
               priority
               quality={75}
               className="object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)] relative z-10"
-            />
+            /> */}
           </div>
         </motion.div>
       </div>

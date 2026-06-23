@@ -3,11 +3,11 @@ import Link from 'next/link';
 
 type LogoProps = {
   src: string | StaticImageData;
-  width?: number;
-  height?: number;
+  width?: string;
+  height?: string;
 };
 
-export default function Logo({ src }: LogoProps) {
+export default function Logo({ src, width, height }: LogoProps) {
   return (
     // <Link href="/" className="flex items-center gap-2.5 shrink-0">
     //   <Image
@@ -18,7 +18,7 @@ export default function Logo({ src }: LogoProps) {
     //     alt="YAANA Transit Logo"
     //   />
     // </Link>
-    <Link href="/" className="relative w-[180px] h-[100px] flex shrink-0">
+    <Link href="/" className={`relative flex shrink-0 ${width} ${height}`}>
       <Image
         fill
         src={src}

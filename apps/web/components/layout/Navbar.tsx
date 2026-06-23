@@ -2,16 +2,11 @@
 
 'use client';
 
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import {
-  buildWhatsAppUrl,
-  NAV_LINKS,
-  SITE,
-  WA_MESSAGES,
-} from '@/lib/constants';
 import Logo from '../Logo';
+import Link from 'next/link';
+import { Menu, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { buildWhatsAppUrl, NAV_LINKS, WA_MESSAGES } from '@/lib/constants';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -52,14 +47,14 @@ export default function Navbar() {
           scrolled ? 'shadow-[0_4px_24px_rgba(11,31,58,0.08)]' : '',
         ].join(' ')}
       >
-        <Logo src="/logo-dark.png" />
+        <Logo src="/logo-nav.png" width="w-[200px]" height="h-[150px]" />
 
         <nav className="hidden lg:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className="text-[16px] font-medium text-muted hover:text-navy transition-colors duration-200 tracking-[0.2px]"
+              className="relative text-[16px] font-medium text-muted hover:text-navy transition-colors duration-200 tracking-[0.2px] after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-navy after:transition-all after:duration-300 hover:after:w-full"
             >
               {link.label}
             </Link>
