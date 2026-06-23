@@ -39,8 +39,8 @@ export type NavLink = {
 };
 
 export const NAV_LINKS: NavLink[] = [
-  { label: 'Fleet', href: '#fleet' },
-  { label: 'Services', href: '#services' },
+  { label: 'Fleet', href: '/fleet' },
+  { label: 'Services', href: '/services' },
   { label: 'Cities', href: '#cities' },
   { label: 'Why Us', href: '#why' },
   { label: 'Contact', href: '#inquiry' },

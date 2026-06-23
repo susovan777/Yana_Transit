@@ -122,3 +122,24 @@ export const FLEET: Car[] = [
     badgeStyle: 'blue',
   },
 ];
+
+
+export type FleetCategory = {
+  value: CarCategory | 'all';
+  label: string;
+};
+
+export const FLEET_CATEGORIES: FleetCategory[] = [
+  { value: 'all',         label: 'All Vehicles' },
+  { value: 'sedan',       label: 'Sedan' },
+  { value: 'muv',         label: 'MUV' },
+  { value: 'suv',         label: 'SUV' },
+  { value: 'premium-suv', label: 'Premium SUV' },
+  { value: 'premium',     label: 'Premium' },
+  { value: 'luxury',      label: 'Luxury' },
+];
+
+export function filterFleet(category: CarCategory | 'all'): Car[] {
+  if (category === 'all') return FLEET;
+  return FLEET.filter((c) => c.category === category);
+}
