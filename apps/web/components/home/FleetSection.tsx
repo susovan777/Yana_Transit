@@ -14,17 +14,28 @@ import { FLEET, Car, CarCategory, BadgeStyle } from '@/lib/data/fleet';
 // ─────────────────────────────────────────
 // FILTER TABS
 // ─────────────────────────────────────────
-const TABS = ['All', 'Economy', 'Sedan', 'SUV', 'Luxury'] as const;
+const TABS = [
+  'All',
+  'Sedan',
+  'MUV',
+  'SUV',
+  'Premium SUV',
+  'Premium',
+  'Luxury',
+] as const;
 type Tab = (typeof TABS)[number];
 
 const TAB_TO_CATEGORY: Record<Exclude<Tab, 'All'>, CarCategory> = {
-  Economy: 'economy',
   Sedan: 'sedan',
+  MUV: 'muv',
   SUV: 'suv',
+  'Premium SUV': 'premium-suv',
+  Premium: 'premium',
   Luxury: 'luxury',
 };
 
-const FEATURED_IDS = ['maruti-swift', 'innova-crysta', 'mercedes-e-class'];
+// Show one featured car per category on "All" tab
+const FEATURED_IDS = ['maruti-dzire', 'innova-crysta', 'mercedes-e-class'];
 
 function getFiltered(active: Tab): Car[] {
   if (active === 'All') return FLEET.filter((c) => FEATURED_IDS.includes(c.id));
@@ -118,21 +129,11 @@ function CarCard({ car }: { car: Car }) {
           <span className="text-[12px] text-muted">❄️ AC</span>
         </div>
 
-        {/* Price + CTA */}
+        {/* Footer — B2B: no pricing, enquiry CTA only */}
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-line">
-          {/* Price */}
-          <div>
-            <p className="text-[11px] text-muted mb-0.5">Starting from</p>
-            <p
-              className="text-[24px] font-bold text-navy leading-none"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              ₹{car.pricePerDay.toLocaleString('en-IN')}
-              <span className="text-[13px] font-normal text-muted ml-1">
-                / day
-              </span>
-            </p>
-          </div>
+          <p className="text-[12px] text-muted italic">
+            {/* Corporate pricing on request */}
+          </p>
 
           {/* WhatsApp enquiry */}
           <Link
@@ -229,8 +230,8 @@ export default function FleetSection() {
               variants={headerItem}
               className="mt-3 text-[16px] leading-[1.75] text-muted max-w-[480px]"
             >
-              Economy to luxury — the right car for your budget and comfort,
-              ready across India.
+              Sedan to luxury — every vehicle is chauffeur-driven, fully
+              insured, and available across 10+ cities.
             </motion.p>
           </div>
 

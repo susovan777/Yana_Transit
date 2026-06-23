@@ -91,10 +91,10 @@ function CityCard({
           {city.state}
         </p>
 
-        {/* Car count pill */}
-        <span className="inline-block mt-2.5 px-2.5 py-1 rounded-full bg-sky-brand/80 text-white text-[11px] font-semibold tracking-[0.3px]">
+        {/* No car count shown — B2B, fleet numbers not disclosed */}
+        {/* <span className="inline-block mt-2.5 px-2.5 py-1 rounded-full bg-sky-brand/80 text-white text-[11px] font-semibold tracking-[0.3px]">
           {city.carCount}
-        </span>
+        </span> */}
       </div>
     </motion.div>
   );
@@ -137,8 +137,8 @@ export default function CitiesSection() {
             variants={fadeUp}
             className="mt-3 text-[16px] leading-[1.75] text-muted max-w-[480px] mx-auto"
           >
-            From the beaches of Goa to the forts of Rajasthan — find a YAANA
-            Transite car in your city.
+            From metro business hubs to branch offices — YAANA Transit provides
+            reliable corporate transport wherever your business operates.
           </motion.p>
         </motion.div>
 
@@ -168,10 +168,11 @@ export default function CitiesSection() {
           ))}
         </motion.div>
 
-        <p className="text-center mt-10 text-gray-600">
-          Also serving · Hyderabad · Chennai · Pune · Ahmedabad · Kochi ·
-          Chandigarh · Agra · Udaipur + 30 more
-        </p>
+        {/* Facility in Other Cities */}
+        {/* <p className="text-center mt-10 text-[13px] text-muted">
+          Also operating in · Ahmedabad · Kochi · Chandigarh · Agra · Udaipur ·
+          Coimbatore · Nagpur · Surat + 40 more cities
+        </p> */}
       </div>
     </section>
   );

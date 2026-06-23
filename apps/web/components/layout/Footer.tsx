@@ -75,8 +75,6 @@ function SocialBtn({ label, href, icon }: SocialItem) {
 // FOOTER
 // ─────────────────────────────────────────
 export default function Footer() {
-  const waUrl = buildWhatsAppUrl(WA_MESSAGES.default);
-
   const socials: SocialItem[] = [
     {
       label: 'X (Twitter)',

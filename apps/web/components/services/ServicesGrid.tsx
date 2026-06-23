@@ -2,8 +2,6 @@
 
 'use client';
 
-// Path: apps/web/components/services/ServicesGrid.tsx
-//
 // Animated 3-column grid of service cards.
 // "use client" because of whileInView + whileHover.
 //
@@ -76,21 +74,22 @@ export default function ServicesGrid({ services }: ServicesGridProps) {
               {service.description}
             </p>
 
-            {/* Price label */}
-            <p className="text-xs font-semibold text-[#2E6FD8] mb-5 tracking-wide">
-              {service.priceLabel}
-            </p>
+            {/* Footer: B2B — no pricing */}
+            <div className="flex items-center justify-between pt-4 border-t border-line mt-auto">
+              <span className="text-[12px] text-slate-400 italic">
+                {/* Corporate pricing on request */}
+              </span>
 
-            {/* Book CTA */}
-            <Link
-              href={waUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#2E6FD8] hover:gap-3 transition-all duration-200 group/cta"
-            >
-              Book now
-              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/cta:translate-x-1" />
-            </Link>
+              <Link
+                href={waUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#2E6FD8] hover:gap-2.5 transition-all duration-200 group/cta"
+              >
+                Enquire
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/cta:translate-x-1" />
+              </Link>
+            </div>
           </motion.div>
         );
       })}

@@ -77,17 +77,17 @@ function ServiceCard({ service }: { service: Service }) {
         </p>
       </div>
 
-      {/* Footer: price + CTA */}
+      {/* Footer: B2B — no pricing, enquiry CTA */}
       <div className="flex items-center justify-between pt-4 border-t border-white/8">
-        <span className="text-[13px] font-semibold text-[#7EB3FF]">
-          {service.priceLabel}
+        <span className="text-[12px] text-white/35 italic">
+          {/* Corporate pricing on request */}
         </span>
 
         <Link
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-white/50 hover:text-white transition-colors duration-200 group/link"
+          className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-white/55 hover:text-white transition-colors duration-200 group/link"
         >
           Enquire
           <ArrowRight

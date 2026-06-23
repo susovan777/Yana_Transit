@@ -94,17 +94,20 @@ export default function FleetPage() {
             <em className="not-italic text-[#7EB3FF]">Every Journey</em>
           </h1>
           <p className="text-white/55 text-base md:text-lg leading-relaxed max-w-xl">
-            Economy to luxury — every car is fully insured, GPS tracked, and
-            serviced before your trip. Available across 50+ cities.
+            <p className="text-white/55 text-base md:text-lg leading-relaxed max-w-xl">
+              Sedan to luxury — every vehicle is chauffeur-driven, fully
+              insured, and available across 10+ cities for your corporate travel
+              needs.
+            </p>
           </p>
 
           {/* Stats row */}
           <div className="flex flex-wrap gap-8 mt-10 pt-8 border-t border-white/10">
             {[
               { value: `${allCars.length}+`, label: 'Vehicles' },
-              { value: '4', label: 'Categories' },
-              { value: '50+', label: 'Cities' },
-              { value: '₹999', label: 'Starting / day' },
+              { value: '6', label: 'Categories' },
+              { value: '50+', label: 'Cities Covered' },
+              { value: '24/7', label: 'Support' },
             ].map((s) => (
               <div key={s.label}>
                 <p className="font-poppins text-3xl font-semibold text-white leading-none">
@@ -121,7 +124,7 @@ export default function FleetPage() {
 
       {/* ── Fleet grid (client component) ──────────────────────── */}
       <section className="max-w-7xl mx-auto px-6 py-14">
-        <FleetClient cars={allCars} categories={FLEET_CATEGORIES} />
+        <FleetClient cars={allCars} />
       </section>
 
       {/* ── Bottom CTA ─────────────────────────────────────────── */}
@@ -143,7 +146,7 @@ export default function FleetPage() {
             className="inline-flex items-center gap-3 bg-[#0B1F3A] hover:bg-[#2E6FD8] text-white font-semibold px-8 py-3.5 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#2E6FD8]/25"
           >
             {/* WhatsApp icon */}
-            <WhatsAppIcon size={5} />
+            <WhatsAppIcon size={18} />
             Chat on WhatsApp
           </Link>
         </div>

@@ -24,7 +24,7 @@ import { WhatsAppIcon } from '@/components/ui/SocialIcons';
 export const metadata: Metadata = {
   title: `Our Services — ${SITE.name}`,
   description:
-    'Chauffeur-driven rides, self-drive rentals, airport transfers, outstation trips, corporate leasing and event fleets — all across 50+ cities in India.',
+    'Chauffeur-driven rides, employee transportation, airport transfers, outstation trips, corporate leasing and event fleets — all across 50+ cities in India.',
   openGraph: {
     title: `Our Services — ${SITE.name}`,
     description:
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 // ── Why-us trust points (shown in the bottom banner) ───────────────
 const TRUST_POINTS = [
   { icon: '🛡️', text: 'Fully Insured Fleet' },
-  { icon: '✅', text: 'Verified Drivers' },
+  { icon: '✅', text: 'Verified Chauffeurs' },
   { icon: '🔒', text: 'No Hidden Charges' },
   { icon: '📞', text: '24 / 7 Support' },
 ];
@@ -99,8 +99,8 @@ export default function ServicesPage() {
             {[
               { value: '6', label: 'Service types' },
               { value: '50+', label: 'Cities covered' },
-              { value: '₹799', label: 'Starts from' },
               { value: '15 min', label: 'Avg. response time' },
+              { value: '24/7', label: 'Support' },
             ].map((s) => (
               <div key={s.label}>
                 <p className="font-poppins text-3xl font-semibold text-white leading-none">
@@ -151,7 +151,7 @@ export default function ServicesPage() {
                 step: '03',
                 icon: '✅',
                 title: 'Get Confirmed',
-                desc: 'Receive booking confirmation, driver name, and vehicle details on WhatsApp before your trip.',
+                desc: 'Receive booking confirmation, chauffeur name, and vehicle details on WhatsApp before your trip.',
               },
               {
                 step: '04',
@@ -204,10 +204,7 @@ export default function ServicesPage() {
             Just tell us where you're going and when — our team will recommend
             the right option and confirm pricing in minutes.
           </p>
-          <div
-            className="flex flex-col sm:flex-row items-center
-                          justify-center gap-3"
-          >
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href={`https://wa.me/${SITE.phoneRaw}?text=${encodeURIComponent(
                 'Hi YAANA Transit! I need help choosing the right service for my trip.'
@@ -217,7 +214,7 @@ export default function ServicesPage() {
               className="inline-flex items-center gap-2.5 bg-[#0B1F3A] hover:bg-[#2E6FD8] text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#2E6FD8]/25 w-full sm:w-auto justify-center"
             >
               {/* WhatsApp icon */}
-              <WhatsAppIcon size={5} />
+              <WhatsAppIcon size={18} />
               Chat on WhatsApp
             </Link>
             <Link
