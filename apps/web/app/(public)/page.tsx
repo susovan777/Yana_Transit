@@ -27,8 +27,8 @@ export default function HomePage() {
       <TrustStrip />
       <FleetSection />
       <ServicesSection />
-      <WhyUsSection />
       <CitiesSection />
+      <WhyUsSection />
       <TestimonialsSection />
       <InquirySection />
     </>
