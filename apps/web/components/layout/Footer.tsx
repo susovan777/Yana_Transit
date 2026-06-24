@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { FOOTER_COLUMNS, SITE } from '@/lib/constants';
+import { FOOTER_COLUMNS, FOOTER_CONTACT, SITE } from '@/lib/constants';
 import Logo from '../Logo';
 import {
   FacebookIcon,
@@ -97,7 +97,7 @@ export default function Footer() {
     <footer className="bg-navy text-white">
       {/* ── Top grid ── */}
       <div className="max-w-[1280px] mx-auto px-6 md:px-10 xl:px-14 pt-16 pb-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-12 pb-14 border-b border-white/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1.2fr] gap-12 pb-14 border-b border-white/10">
           {/* Brand column */}
           <div>
             <Logo src="/logo-footer.png" width='w-[200px]' height='h-[200px]' />
@@ -131,6 +131,28 @@ export default function Footer() {
               links={col.links}
             />
           ))}
+
+          {/* Get in Touch column */}
+          <div>
+            <h4 className="text-[11px] font-bold tracking-[2px] uppercase text-white/40 mb-5">
+              Get in Touch
+            </h4>
+            <ul className="flex flex-col gap-4">
+              {FOOTER_CONTACT.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    target={item.href.startsWith('http') ? '_blank' : undefined}
+                    rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="group flex items-start gap-2.5 text-[14px] text-white/60 hover:text-white transition-colors duration-200"
+                  >
+                    <span className="mt-px shrink-0">{item.icon}</span>
+                    <span className="leading-snug">{item.value}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         {/* ── Bottom bar ── */}

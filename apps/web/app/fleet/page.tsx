@@ -20,12 +20,7 @@
 //     Google sees all cars without running JavaScript.
 
 import type { Metadata } from 'next';
-import {
-  FLEET,
-  filterFleet,
-  FLEET_CATEGORIES,
-  CarCategory,
-} from '@/lib/data/fleet';
+import { FLEET } from '@/lib/data/fleet';
 import { SITE } from '@/lib/constants';
 import FleetClient from '@/components/fleet/FleetClient';
 import Link from 'next/link';
@@ -94,11 +89,8 @@ export default function FleetPage() {
             <em className="not-italic text-[#7EB3FF]">Every Journey</em>
           </h1>
           <p className="text-white/55 text-base md:text-lg leading-relaxed max-w-xl">
-            <p className="text-white/55 text-base md:text-lg leading-relaxed max-w-xl">
-              Sedan to luxury — every vehicle is chauffeur-driven, fully
-              insured, and available across 10+ cities for your corporate travel
-              needs.
-            </p>
+            Sedan to luxury — every vehicle is chauffeur-driven, fully insured,
+            and available across 10+ cities for your corporate travel needs.
           </p>
 
           {/* Stats row */}

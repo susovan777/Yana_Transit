@@ -102,3 +102,41 @@ export const SOCIAL_LINKS: SocialLink[] = [
   { label: 'Facebook', href: '#', icon: 'facebook' },
   { label: 'YouTube', href: '#', icon: 'youtube' },
 ];
+
+// ─────────────────────────────────────────
+// FOOTER CONTACT COLUMN
+// ─────────────────────────────────────────
+export type ContactItem = {
+  icon: string;
+  label: string;
+  value: string;
+  href: string;
+};
+
+export const FOOTER_CONTACT: ContactItem[] = [
+  {
+    icon: '📞',
+    label: 'Phone',
+    value: '+91 98765 43210',
+    href: 'tel:+919876543210',
+  },
+  {
+    icon: '✉️',
+    label: 'Email',
+    value: 'hello@yaanatransit.in',
+    href: 'mailto:hello@yaanatransit.in',
+  },
+  {
+    icon: '💬',
+    label: 'WhatsApp',
+    value: 'Chat with us',
+    href: 'https://wa.me/919876543210',
+  },
+  {
+    icon: '📍',
+    label: 'Head Office',
+    // Update once Bengaluru address is confirmed
+    value: 'Bengaluru, Karnataka, India',
+    href: '#',
+  },
+];
