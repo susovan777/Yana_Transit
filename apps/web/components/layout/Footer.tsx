@@ -97,7 +97,7 @@ export default function Footer() {
     <footer className="bg-navy text-white">
       {/* ── Top grid ── */}
       <div className="max-w-[1280px] mx-auto px-6 md:px-10 xl:px-14 pt-16 pb-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1.2fr] gap-12 pb-14 border-b border-white/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1.2fr] gap-12 pb-6 border-b border-white/10">
           {/* Brand column */}
           <div>
             <Logo src="/logo-footer.png" width='w-[200px]' height='h-[200px]' />
@@ -115,12 +115,7 @@ export default function Footer() {
               {SITE.description}
             </p>
 
-            {/* Socials */}
-            <div className="flex items-center gap-2">
-              {socials.map((s) => (
-                <SocialBtn key={s.label} {...s} />
-              ))}
-            </div>
+            
           </div>
 
           {/* Data columns */}
@@ -152,6 +147,13 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+
+            {/* Socials */}
+            <div className="flex items-center gap-2 mt-6">
+              {socials.map((s) => (
+                <SocialBtn key={s.label} {...s} />
+              ))}
+            </div>
           </div>
         </div>
 

@@ -66,7 +66,7 @@ export default function Navbar() {
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-[22px] py-[9px] rounded-btn bg-navy text-white text-[14px] font-semibold whitespace-nowrap hover:bg-navy-mid transition-all duration-200 hover:-translate-y-px"
+            className="inline-block px-[22px] py-[9px] rounded-btn bg-sky-brand text-white text-[15px] font-semibold whitespace-nowrap hover:bg-navy-mid transition-all duration-200 hover:-translate-y-px"
           >
             Get a Quote
           </Link>
