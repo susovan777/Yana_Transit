@@ -1,7 +1,5 @@
 // Path: apps\web\app\fleet\page.tsx
 
-// Path: apps/web/app/fleet/page.tsx
-//
 // Fleet listing page — /fleet
 //
 // Architecture:
