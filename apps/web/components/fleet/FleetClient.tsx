@@ -6,7 +6,7 @@ import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Car, CarCategory } from '@/lib/data/fleet';
 import CarGrid from '@/components/fleet/CarGrid';
-import FilterBar from './FilterBar1';
+import FilterBar from './FilterBar';
 
 interface FleetClientProps {
   cars: Car[];
