@@ -43,7 +43,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: 'Services', href: '/services' },
   { label: 'Cities', href: '/cities' },
   { label: 'Why Us', href: '/why' },
-  { label: 'Contact', href: '/inquiry' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 // ─────────────────────────────────────────
@@ -82,7 +82,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     links: [
       { label: 'About Us', href: '/about' },
       { label: 'Our Fleet', href: '/fleet' },
-      { label: 'Contact', href: '#inquiry' },
+      { label: 'Contact', href: '/contact' },
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms of Service', href: '/terms' },
       { label: 'Cancellation Policy', href: '/cancellation' },
