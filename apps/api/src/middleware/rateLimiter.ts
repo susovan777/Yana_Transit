@@ -8,7 +8,7 @@ import rateLimit from 'express-rate-limit';
 export const globalRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100,
-  standardHeaders: true, // Return RateLimit-* headers
+  standardHeaders: true,
   legacyHeaders: false,
   message: {
     success: false,
@@ -17,15 +17,16 @@ export const globalRateLimiter = rateLimit({
 });
 
 // ── Auth limiter ────────────────────────────────────────────────────
-// 5 OTP requests per 10 minutes per IP
-// Prevents SMS bombing (each OTP costs money via MSG91)
+// 5 requests per 15 minutes per IP on all /api/auth/* routes.
+// Prevents brute-force login attempts and invitation token probing.
 export const authRateLimiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 minutes
+  windowMs: 15 * 60 * 1000, // 15 minutes
   max: 5,
   standardHeaders: true,
   legacyHeaders: false,
+  skipSuccessfulRequests: true, // only count failed/errored requests
   message: {
     success: false,
-    error: 'Too many OTP requests. Please wait 10 minutes before trying again.',
+    error: 'Too many attempts. Please wait 15 minutes before trying again.',
   },
 });
