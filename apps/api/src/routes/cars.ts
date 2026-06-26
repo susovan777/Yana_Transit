@@ -1,79 +1,70 @@
 // Path: apps/api/src/routes/cars.ts
 //
-// Cars REST API — public endpoints (no auth required).
+// Vehicle catalog — public endpoints (no auth required).
+// These power the marketing website's fleet section.
+//
+// Note: B2B model — no pricing returned here.
+// Enquiries go via WhatsApp/contact form.
 //
 // Endpoints:
-//   GET  /api/cars          — list all cars (with optional filters)
-//   GET  /api/cars/:id      — single car detail
+//   GET /api/cars          — list active vehicles (with optional filters)
+//   GET /api/cars/:id      — single vehicle detail
 
 import { z } from 'zod';
-import prisma from '../lib/prisma';
 import { Router, Request, Response } from 'express';
-import { AppError } from '../middleware/errorHandler';
-import { catchAsync } from '../middleware/errorHandler';
+import { VehicleCategory } from '@prisma/client';
+
+import prisma from '../lib/prisma';
+import { AppError, catchAsync } from '../middleware/errorHandler';
 
 const router: Router = Router();
 
-// ── Query params schema for GET /api/cars ───────────────────────────
-const carsQuerySchema = z.object({
-  category: z.enum(['economy', 'sedan', 'suv', 'luxury']).optional(),
-  city: z.string().optional(),
-  available: z
-    .string()
-    .transform((v) => v === 'true')
+// ── Query params schema ───────────────────────────────────────────────
+const vehiclesQuerySchema = z.object({
+  category: z
+    .enum(['SEDAN', 'MUV', 'SUV', 'PREMIUM_SUV', 'PREMIUM', 'LUXURY'] as [
+      VehicleCategory,
+      ...VehicleCategory[]
+    ])
     .optional(),
+  cityId: z.string().cuid().optional(),
   page: z.string().transform(Number).default('1'),
   limit: z.string().transform(Number).default('12'),
 });
 
-// ── GET /api/cars ────────────────────────────────────────────────────
-// Returns paginated list of cars with optional filters.
-// Public — no authentication needed.
+// ── GET /api/cars ─────────────────────────────────────────────────────
 router.get(
   '/',
   catchAsync(async (req: Request, res: Response) => {
-    // Validate + parse query params
-    const query = carsQuerySchema.parse(req.query);
+    const query = vehiclesQuerySchema.parse(req.query);
     const skip = (query.page - 1) * query.limit;
 
-    // Build Prisma where clause dynamically
     const where = {
+      isActive: true,
       ...(query.category && { category: query.category }),
-      ...(query.available !== undefined && { available: query.available }),
+      ...(query.cityId && { baseCityId: query.cityId }),
     };
 
-    // Run count + data queries in parallel for performance
-    const [total, cars] = await Promise.all([
-      prisma.car.count({ where }),
-      prisma.car.findMany({
+    const [total, vehicles] = await Promise.all([
+      prisma.vehicle.count({ where }),
+      prisma.vehicle.findMany({
         where,
         skip,
         take: query.limit,
-        orderBy: { pricePerDay: 'asc' },
+        orderBy: { category: 'asc' },
         select: {
           id: true,
           name: true,
-          slug: true,
           category: true,
-          typeLabel: true,
           seats: true,
-          transmission: true,
-          fuel: true,
-          pricePerDay: true,
-          pricePerKm: true,
-          selfDrivePrice: true,
-          badge: true,
-          badgeStyle: true,
-          features: true,
-          images: true,
-          available: true,
+          baseCity: { select: { id: true, name: true, state: true } },
         },
       }),
     ]);
 
     res.json({
       success: true,
-      data: cars,
+      data: vehicles,
       pagination: {
         total,
         page: query.page,
@@ -84,24 +75,30 @@ router.get(
   })
 );
 
-// ── GET /api/cars/:id ────────────────────────────────────────────────
-// Returns single car by slug (e.g. "innova-crysta").
-// Used for car detail pages and booking flow.
+// ── GET /api/cars/:id ─────────────────────────────────────────────────
 router.get(
-  '/:slug',
+  '/:id',
   catchAsync(async (req: Request, res: Response) => {
-    const car = await prisma.car.findUnique({
-      where: { slug: req.params.slug },
+    const vehicle = await prisma.vehicle.findUnique({
+      where: { id: req.params.id },
+      select: {
+        id: true,
+        name: true,
+        category: true,
+        seats: true,
+        year: true,
+        color: true,
+        isActive: true,
+        notes: true,
+        baseCity: { select: { id: true, name: true, state: true } },
+      },
     });
 
-    if (!car) {
-      throw new AppError(`Car '${req.params.slug}' not found`, 404);
+    if (!vehicle) {
+      throw new AppError('Vehicle not found.', 404);
     }
 
-    res.json({
-      success: true,
-      data: car,
-    });
+    res.json({ success: true, data: vehicle });
   })
 );
 
