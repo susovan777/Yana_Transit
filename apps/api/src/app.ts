@@ -1,11 +1,12 @@
 // Path: apps/api/src/app.ts
 
 import 'dotenv/config';
-import express, { Express } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
-import compression from 'compression';
 import morgan from 'morgan';
+import compression from 'compression';
+import cookieParser from 'cookie-parser';
+import express, { Express } from 'express';
 
 import { corsOptions } from './middleware/cors';
 import { globalRateLimiter } from './middleware/rateLimiter';
@@ -13,10 +14,10 @@ import { errorHandler, notFound } from './middleware/errorHandler';
 
 // ── Route imports (add as you build each) ──────────────────────────
 import carsRouter from './routes/cars';
-// import authRouter from './routes/auth';       // Phase 1
+import authRouter from './routes/auth';
+import adminRouter from './routes/admin';
 // import bookingsRouter from './routes/bookings'; // Phase 2
 // import paymentsRouter from './routes/payments'; // Phase 2
-// import adminRouter from './routes/admin';       // Phase 3
 
 const app: Express = express();
 
@@ -34,6 +35,10 @@ app.use(cors(corsOptions));
 // Parse incoming JSON request bodies (max 10kb — prevents abuse)
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+
+// ── Cookie parsing ────────────────────────────────────────────────────
+// Auth reads req.cookies
+app.use(cookieParser());
 
 // ── Compression ─────────────────────────────────────────────────────
 // Gzip responses — reduces payload size by ~70% for JSON
@@ -53,7 +58,7 @@ app.use('/api', globalRateLimiter);
 app.get('/health', (_req, res) => {
   res.json({
     status: 'ok',
-    service: 'yana-transit-api',
+    service: 'yaana-transit-api',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV ?? 'development',
   });
@@ -61,10 +66,10 @@ app.get('/health', (_req, res) => {
 
 // ── API routes ──────────────────────────────────────────────────────
 app.use('/api/cars', carsRouter);
-// app.use('/api/auth', authRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/admin', adminRouter);
 // app.use('/api/bookings', bookingsRouter);
 // app.use('/api/payments', paymentsRouter);
-// app.use('/api/admin', adminRouter);
 
 // ── 404 — route not found ───────────────────────────────────────────
 app.use(notFound);
@@ -79,12 +84,14 @@ const PORT = Number(process.env.PORT) || 4000;
 
 app.listen(PORT, () => {
   console.log(`
-  ┌─────────────────────────────────────────┐
-  │   🚗  YAANA Transit API                  │
-  │   Port     : ${PORT}                       │
-  │   Env      : ${process.env.NODE_ENV ?? 'development'}              │
-  │   Health   : http://localhost:${PORT}/health │
-  └─────────────────────────────────────────┘
+  ┌─────────────────────────────────────────────────┐
+  │   🚗  YAANA Transit API                         │
+  │   Port     : ${PORT}                               │
+  │   Env      : ${
+    process.env.NODE_ENV ?? 'development'
+  }                        │
+  │   Health   : http://localhost:${PORT}/health       │
+  └─────────────────────────────────────────────────┘
   `);
 });
 
