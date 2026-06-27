@@ -1,5 +1,5 @@
 {
-  "name": "@yaana-transit/api",
+  "name": "@yt/api",
   "version": "1.0.0",
   "description": "YAANA Transit REST API — Node.js + Express + Prisma + PostgreSQL",
   "private": true,

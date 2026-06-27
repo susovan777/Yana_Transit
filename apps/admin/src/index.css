@@ -1,111 +1,77 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+/* Path: apps/admin/src/index.css
+   Tailwind v4 — all config lives here, no tailwind.config.ts */
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+@import 'tailwindcss';
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme {
+  /* ── Brand colors ─────────────────────────────────────────── */
+  --color-navy-950: #060f1c;
+  --color-navy-900: #0b1f3a; /* sidebar bg, primary dark */
+  --color-navy-800: #12305a;
+  --color-navy-700: #1a4a7a;
+  --color-navy-600: #1e5490;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  --color-sky-600: #2e6fd8; /* primary accent */
+  --color-sky-500: #4a8aea;
+  --color-sky-400: #7eb3ff;
+  --color-sky-100: #e8f0fe;
+  --color-sky-50: #f0f5ff;
+
+  --color-content-bg: #f7f9fc; /* main content area background */
+  --color-border: #e2e8f2;
+  --color-border-dark: rgba(255, 255, 255, 0.08); /* sidebar borders */
+
+  /* ── Typography ───────────────────────────────────────────── */
+  --font-display: 'Poppins', sans-serif; /* sidebar, headings */
+  --font-body: 'Outfit', sans-serif; /* content, tables, body */
+
+  /* ── Sidebar ──────────────────────────────────────────────── */
+  --sidebar-width: 240px;
+  --topbar-height: 64px;
+
+  /* ── Shadows ──────────────────────────────────────────────── */
+  --shadow-card: 0 1px 3px rgba(11, 31, 58, 0.08),
+    0 1px 2px rgba(11, 31, 58, 0.04);
+  --shadow-modal: 0 20px 60px rgba(11, 31, 58, 0.18);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+/* ── Base reset ──────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
-  margin: 0;
+  font-family: var(--font-body);
+  background: var(--color-content-bg);
+  color: var(--color-navy-900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+/* ── Scrollbar ───────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c5cdd9;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+/* ── Focus ring ──────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-sky-600);
+  outline-offset: 2px;
 }
