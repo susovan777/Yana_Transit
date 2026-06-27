@@ -80,7 +80,7 @@ router.get(
   '/:id',
   catchAsync(async (req: Request, res: Response) => {
     const vehicle = await prisma.vehicle.findUnique({
-      where: { id: req.params.id },
+      where: { id: req.params.id as string },
       select: {
         id: true,
         name: true,

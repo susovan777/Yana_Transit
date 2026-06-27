@@ -18,7 +18,7 @@ import {
   resetPassword,
 } from '../controllers/auth.controller';
 
-const router = Router();
+const router: Router = Router();
 
 // Strict rate limit on all auth routes (5 req / 15 min per IP)
 router.use(authRateLimiter);

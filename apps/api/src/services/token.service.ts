@@ -42,7 +42,7 @@ function requireEnv(key: string): string {
 // ── Access token ─────────────────────────────────────────────────────
 
 export function signAccessToken(payload: AccessTokenPayload): string {
-  const secret = requireEnv('JWT_ACCESS_SECRET');
+  const secret = requireEnv('JWT_SECRET');
   return jwt.sign(payload, secret, {
     expiresIn: '15m',
     issuer: 'yaana-transit-api',
@@ -51,7 +51,7 @@ export function signAccessToken(payload: AccessTokenPayload): string {
 }
 
 export function verifyAccessToken(token: string): AccessTokenPayload {
-  const secret = requireEnv('JWT_ACCESS_SECRET');
+  const secret = requireEnv('JWT_SECRET');
   return jwt.verify(token, secret, {
     issuer: 'yaana-transit-api',
     audience: 'yaana-transit-client',

@@ -21,7 +21,7 @@ import {
   resendInvite,
 } from '../controllers/admin.controller';
 
-const router = Router();
+const router: Router = Router();
 
 // Every admin route requires: valid JWT + YAANA_ADMIN role
 router.use(authenticate, authorize('YAANA_ADMIN'));
